@@ -1,0 +1,295 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  background: var(--ink-0);
+  color: var(--paper);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  min-height: 100vh;
+}
+
+a {
+  color: inherit;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+::selection {
+  background: rgba(236, 232, 223, 0.22);
+}
+
+:focus-visible {
+  outline: 2px solid rgba(236, 232, 223, 0.55);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+p {
+  margin: 0;
+}
+
+.serif {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.005em;
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-size: 0.86em;
+  letter-spacing: 0;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--paper-3);
+}
+
+.muted {
+  color: var(--paper-2);
+}
+
+.faint {
+  color: var(--paper-3);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------------------------------------------------------------- buttons */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 38px;
+  padding: 0 16px;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--line-strong);
+  background: var(--ink-2);
+  color: var(--paper);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.15s var(--ease), border-color 0.15s var(--ease), transform 0.15s var(--ease);
+}
+
+.btn:hover {
+  background: var(--ink-3);
+  border-color: #474e59;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: var(--paper);
+  border-color: var(--paper);
+  color: var(--ink-0);
+}
+
+.btn-primary:hover {
+  background: #fffaf0;
+  border-color: #fffaf0;
+}
+
+.btn-ghost {
+  background: transparent;
+  border-color: transparent;
+  color: var(--paper-2);
+}
+
+.btn-ghost:hover {
+  background: var(--ink-2);
+  color: var(--paper);
+  border-color: var(--line);
+}
+
+.btn-sm {
+  height: 30px;
+  padding: 0 11px;
+  font-size: 13px;
+}
+
+.btn-lg {
+  height: 46px;
+  padding: 0 22px;
+  font-size: 15px;
+}
+
+.btn-danger:hover {
+  border-color: var(--contradicted);
+  color: var(--contradicted);
+}
+
+/* ---------------------------------------------------------------- inputs */
+
+.input,
+.select,
+.textarea {
+  width: 100%;
+  background: var(--ink-1);
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  padding: 10px 12px;
+  color: var(--paper);
+  transition: border-color 0.15s var(--ease);
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus {
+  border-color: var(--paper-3);
+  outline: none;
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: var(--paper-4);
+}
+
+.field {
+  display: grid;
+  gap: 6px;
+}
+
+.field label {
+  font-size: 13px;
+  color: var(--paper-2);
+}
+
+.form-error {
+  color: var(--contradicted);
+  font-size: 13px;
+}
+
+/* ---------------------------------------------------------------- surfaces */
+
+.panel {
+  background: var(--ink-1);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+}
+
+.card {
+  background: var(--ink-1);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  padding: 18px;
+}
+
+.divider {
+  height: 1px;
+  background: var(--line);
+  border: 0;
+  margin: 0;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 24px;
+  padding: 0 9px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--ink-2);
+  color: var(--paper-2);
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid var(--line-strong);
+  border-top-color: var(--paper);
+  animation: spin 0.8s linear infinite;
+  flex: none;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+.rise {
+  animation: rise 0.35s var(--ease) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

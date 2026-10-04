@@ -1,0 +1,44 @@
+/* VERITAS design tokens.
+   Principle: the interface is ink and paper; colour is reserved for evidence status. */
+:root {
+  --ink-0: #0b0c0e;
+  --ink-1: #101215;
+  --ink-2: #15181c;
+  --ink-3: #1c2025;
+  --ink-4: #252a31;
+  --line: #262a31;
+  --line-soft: #1b1e23;
+  --line-strong: #353b44;
+
+  --paper: #ece8df;
+  --paper-2: #b8b3a8;
+  --paper-3: #827d74;
+  --paper-4: #5c5850;
+
+  --supported: #4fbf8b;
+  --partial: #7fb2e5;
+  --contradicted: #f0605d;
+  --uncertain: #f2a93b;
+  --insufficient: #8e949c;
+  --security: #e8577a;
+
+  --supported-bg: rgba(79, 191, 139, 0.1);
+  --partial-bg: rgba(127, 178, 229, 0.1);
+  --contradicted-bg: rgba(240, 96, 93, 0.1);
+  --uncertain-bg: rgba(242, 169, 59, 0.1);
+  --insufficient-bg: rgba(142, 148, 156, 0.1);
+  --security-bg: rgba(232, 87, 122, 0.09);
+
+  --font-display: 'Instrument Serif', 'Times New Roman', serif;
+  --font-sans: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace;
+
+  --r-sm: 6px;
+  --r-md: 10px;
+  --r-lg: 14px;
+  --shadow-lift: 0 1px 0 rgba(255, 255, 255, 0.03) inset, 0 12px 32px -18px rgba(0, 0, 0, 0.7);
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --sidebar: 232px;
+  --inspector: 520px;
+  color-scheme: dark;
+}

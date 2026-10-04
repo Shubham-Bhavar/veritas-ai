@@ -1,0 +1,81 @@
+spring:
+  application:
+    name: veritas
+  threads:
+    virtual:
+      enabled: true
+  datasource:
+    # Local default: embedded H2 in PostgreSQL mode. Production: set DB_URL to PostgreSQL.
+    url: ${DB_URL:jdbc:h2:file:./data/veritas;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE;DEFAULT_NULL_ORDERING=HIGH}
+    username: ${DB_USERNAME:veritas}
+    password: ${DB_PASSWORD:}
+    hikari:
+      maximum-pool-size: ${DB_POOL_SIZE:10}
+      connection-timeout: 10000
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: none        # Flyway owns the schema
+    properties:
+      hibernate:
+        jdbc.time_zone: UTC
+        default_batch_fetch_size: 50
+  flyway:
+    enabled: true
+  servlet:
+    multipart:
+      max-file-size: ${MAX_FILE_MB:25}MB
+      max-request-size: ${MAX_REQUEST_MB:120}MB
+  jackson:
+    default-property-inclusion: non_null
+  mvc:
+    problemdetails:
+      enabled: true
+
+server:
+  port: ${PORT:8080}
+  shutdown: graceful
+  forward-headers-strategy: framework
+  error:
+    include-message: never
+    include-stacktrace: never
+
+management:
+  server:
+    port: ${MANAGEMENT_PORT:9091}
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
+app:
+  security:
+    jwt-secret: ${JWT_SECRET:}
+    access-token-ttl: ${ACCESS_TOKEN_TTL:12h}
+    allowed-origins: ${ALLOWED_ORIGINS:}
+  ai:
+    base-url: ${AI_SERVICE_URL:http://localhost:8001}
+    internal-token: ${AI_INTERNAL_TOKEN:}
+    connect-timeout: 5s
+    ingest-timeout: ${AI_INGEST_TIMEOUT:240s}
+    question-timeout: ${AI_QUESTION_TIMEOUT:150s}
+  storage:
+    dir: ${STORAGE_DIR:./data/uploads}
+  uploads:
+    max-file-mb: ${MAX_FILE_MB:25}
+    max-files-per-request: ${MAX_FILES_PER_REQUEST:20}
+    max-documents-per-investigation: ${MAX_DOCUMENTS:60}
+  rate-limit:
+    auth-per-minute: ${RATE_LIMIT_AUTH:20}
+    ask-per-minute: ${RATE_LIMIT_ASK:30}
+    upload-per-minute: ${RATE_LIMIT_UPLOAD:20}
+  demo:
+    enabled: ${DEMO_ENABLED:true}
+
+logging:
+  level:
+    ai.veritas: INFO
