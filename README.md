@@ -2,6 +2,10 @@
 
 **AI that investigates documents — not just reads them.**
 
+> **Live demo:** https://classical-shorts-medicaid-taste.trycloudflare.com — choose **Continue as guest**, then **Load the demo investigation** (indexes in about 30 s), then open **Judge mode** in the sidebar.
+> It runs the Docker Compose stack below (PostgreSQL + pgvector, evidence service, API, nginx), served through a Cloudflare tunnel.
+> **Source:** https://github.com/Shubham-Bhavar/veritas-ai
+
 VERITAS is an evidence-first document investigation platform built for ALGOTHON'26, problem **ALG-AI-02 — Intelligent Document Investigator**. You upload a collection of PDFs, Word files, text files and scans, then ask hard questions. VERITAS answers with:
 
 - a **verdict** in one of five evidence states: Supported, Partially supported, Contradicted, Uncertain, Insufficient evidence;
@@ -206,7 +210,8 @@ The AI tests run the **real** pipeline on the real demo documents, with real OCR
 | Database outage | Postgres restarted under the running service | ✅ Degraded, then recovered on the next call without a restart |
 | Claude request and failure handling | Real `anthropic` SDK with a mock HTTP transport | ✅ Request shape, verification gate, 500/429/401/refusal/truncation |
 | **Live Claude answers** | Needs `ANTHROPIC_API_KEY` | ⚠️ Not run: no key in this environment |
-| **`docker compose up --build`** | Needs Docker | ⚠️ Not run: Docker is not installed here. The same Postgres+pgvector code paths are verified natively |
+| **`docker compose up --build`** | Docker Desktop 4.93 on Windows (WSL2) | ✅ All 4 containers up (ai and postgres healthy). A fresh guest → demo indexed 11/11 on pgvector in 36 s → flagship answer "Likely eligible", 85%; conflicts 2 unresolved, 3 resolved |
+| Public deployment | Cloudflare tunnel to the compose stack | ✅ Homepage, API, guest login and deep links served over HTTPS |
 
 **Measured on the demo set (Postgres, laptop CPU):** a fresh demo load is fully indexed in about 20 s; the two OCR scans take about 7–9 s each. Questions take 0.8–2.8 s from click to rendered answer, compare is under 1 s, and a page render is under 1 s.
 
@@ -223,7 +228,7 @@ Put a TLS-terminating proxy (Caddy, a cloud load balancer) in front for producti
 
 ## Limitations (stated honestly)
 
-- **`docker compose up` has not been run here** because Docker isn't installed. The PostgreSQL + pgvector application path **has** been run end to end on native PostgreSQL 16 with pgvector 0.6.2 (see Verification status), but run the compose stack once on the target machine before the demo.
+- **The live link is served from a team laptop** through a Cloudflare quick tunnel. It is up only while that machine runs the compose stack, and the URL changes if the tunnel restarts. For permanent hosting, run `docker compose up -d` on any VM with Docker and about 4 GB RAM.
 - **Live Claude answers have not been observed** because no API key was available. The integration is exercised through the real SDK with a mock transport, including a deliberately manipulated model. Without a key, the **extractive engine** answers, and the UI says so in the sidebar and on each answer.
 - **The extractive engine decides numeric criteria, not prose.** Conditions such as "not receiving another scholarship" are listed for human review together with the closest record, not decided automatically. An LLM, when configured, adds verified claims for these.
 - Fact extraction is tuned for English with Indian number formats and common date formats. Attribute matching is general (embedding-based), but its thresholds were calibrated on policy-style documents.
